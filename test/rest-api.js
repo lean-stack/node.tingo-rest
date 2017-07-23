@@ -50,10 +50,12 @@ describe('REST API - CRUD operations:', function(){
       )
       .end(function(e,res){
         expect(e).to.eql(null);
-        expect(res.body).to.have.length(1);
-        expect(res.body[0]._id).to.be.above(0);
-        expect(res.body[0].txt).to.equal('Unit Testing');
-        id = res.body[0]._id;
+        expect(res.body).not.to.be.an('array');
+        expect(res.statusCode).to.be.equal(201);
+        expect(res.header).to.haveOwnProperty('location');
+        expect(res.body.id).to.be.above(0);
+        expect(res.body.txt).to.equal('Unit Testing');
+        id = res.body.id;
         done();
       });
   });
@@ -71,6 +73,9 @@ describe('REST API - CRUD operations:', function(){
           .end(function(e, res){
             expect(e).to.eql(null);
             expect(res.body).to.have.length(2);
+            for (resource of res.body) {
+              expect(resource).to.haveOwnProperty('id');
+            }
             done();
         });
       });
@@ -80,7 +85,7 @@ describe('REST API - CRUD operations:', function(){
     superagent.get(requestUrl+'/'+id)
       .end(function(e, res){
           expect(e).to.eql(null);
-          expect(res.body._id).to.equal(id);
+          expect(res.body.id).to.equal(id);
           done();
       });
   });
@@ -94,11 +99,14 @@ describe('REST API - CRUD operations:', function(){
       )
       .end(function(e,res){
         expect(e).to.eql(null);
-        expect(res.body.msg).to.equal('success');
+        expect(res.statusCode).to.be.equal(200);
+        expect(res.body).to.haveOwnProperty('id');
+        expect(res.body.id).to.equal(id);
+        expect(res.body.completed).to.be.true;
         superagent.get(requestUrl+'/'+id)
           .end(function(e, res){
             expect(e).to.eql(null);
-            expect(res.body.completed).to.equal(true);
+            expect(res.body.completed).to.be.true;
             done();
           });
       });
@@ -121,7 +129,7 @@ describe('REST API - CRUD operations:', function(){
   it('GET /resource/{id} should return 404 for wrong id',   function(done){
     superagent.get(requestUrl+'/'+id)
       .end(function(e, res){
-          expect(e).to.eql(null);
+          expect(e).to.be.a('Error');
           expect(res.statusCode).to.equal(404);
           done();
       });

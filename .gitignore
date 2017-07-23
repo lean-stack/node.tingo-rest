@@ -1,3 +1,6 @@
 
 # NPM dependencies
 node_modules/
+
+# VS Code settings
+.vscode/
