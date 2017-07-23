@@ -51,7 +51,7 @@ module.exports = function (dataDir) {
     
     req.collection.insert(req.body, {}, function(err, result){
       if (err) { return next(err); }
-      res.send(result);
+      res.send(result[0]);
     });
   });
 

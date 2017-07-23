@@ -50,10 +50,10 @@ describe('REST API - CRUD operations:', function(){
       )
       .end(function(e,res){
         expect(e).to.eql(null);
-        expect(res.body).to.have.length(1);
-        expect(res.body[0]._id).to.be.above(0);
-        expect(res.body[0].txt).to.equal('Unit Testing');
-        id = res.body[0]._id;
+        expect(res.body).not.to.be.an('array');
+        expect(res.body._id).to.be.above(0);
+        expect(res.body.txt).to.equal('Unit Testing');
+        id = res.body._id;
         done();
       });
   });
