@@ -53,9 +53,9 @@ describe('REST API - CRUD operations:', function(){
         expect(res.body).not.to.be.an('array');
         expect(res.statusCode).to.be.equal(201);
         expect(res.header).to.haveOwnProperty('location');
-        expect(res.body._id).to.be.above(0);
+        expect(res.body.id).to.be.above(0);
         expect(res.body.txt).to.equal('Unit Testing');
-        id = res.body._id;
+        id = res.body.id;
         done();
       });
   });

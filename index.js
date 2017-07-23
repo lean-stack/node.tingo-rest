@@ -54,7 +54,13 @@ module.exports = function (dataDir) {
       res.statusCode = 201;
       res.setHeader('Location', req.protocol + '://' + req.hostname 
         + req.baseUrl + '/' + req.path + '/' + result[0]._id);
-      res.send(result[0]);
+      
+      // Map result to created resource
+      const resource = result[0];
+      resource.id = resource._id; 
+      delete resource._id;
+
+      res.send(resource);
     });
   });
 
