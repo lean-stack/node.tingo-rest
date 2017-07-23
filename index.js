@@ -52,6 +52,8 @@ module.exports = function (dataDir) {
     req.collection.insert(req.body, {}, function(err, result){
       if (err) { return next(err); }
       res.statusCode = 201;
+      res.setHeader('Location', req.protocol + '://' + req.hostname 
+        + req.baseUrl + '/' + req.path + '/' + result[0]._id);
       res.send(result[0]);
     });
   });
