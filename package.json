@@ -27,8 +27,8 @@
     "tingodb": "^0.5.1"
   },
   "devDependencies": {
-    "chai": "^1.10.0",
-    "mocha": "^2.3.3",
-    "superagent": "^0.21.0"
+    "chai": "^4.1.0",
+    "mocha": "^3.4.2",
+    "superagent": "^3.5.2"
   }
 }

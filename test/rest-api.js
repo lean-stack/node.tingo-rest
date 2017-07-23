@@ -121,7 +121,7 @@ describe('REST API - CRUD operations:', function(){
   it('GET /resource/{id} should return 404 for wrong id',   function(done){
     superagent.get(requestUrl+'/'+id)
       .end(function(e, res){
-          expect(e).to.eql(null);
+          expect(e).to.be.a('Error');
           expect(res.statusCode).to.equal(404);
           done();
       });
