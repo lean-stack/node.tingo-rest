@@ -28,6 +28,7 @@ module.exports = function (dataDir) {
         
         if (err) { return next(err); }
       
+        for(resource of results) { mapInternalId(resource); }
         res.send(results);
       });
   });
@@ -39,6 +40,7 @@ module.exports = function (dataDir) {
       function(err, result){
         if (err) { return next(err); }
         if( result ) {
+          mapInternalId(result);
           res.send(result);
         } else {
           res.sendStatus(404);
@@ -57,8 +59,7 @@ module.exports = function (dataDir) {
       
       // Map result to created resource
       const resource = result[0];
-      resource.id = resource._id; 
-      delete resource._id;
+      mapInternalId(resource);
 
       res.send(resource);
     });
@@ -71,7 +72,10 @@ module.exports = function (dataDir) {
       {_id: req.params.id}, req.body,
       function(err, count){
         if (err) { return next(err); }
-        res.send((count===1)?{msg:'success'}:{msg:'error'});
+        req.collection.findOne({_id: req.params.id}, function(err, result) {
+          mapInternalId(result);
+          res.send(result);
+        });
       }); 
     });
   
@@ -86,5 +90,10 @@ module.exports = function (dataDir) {
       }); 
     });
   
+    function mapInternalId( resource ) {
+      resource.id = resource._id.id; 
+      delete resource._id;
+    }
+
   return app;
 };
