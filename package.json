@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/lean-stack/node.tingo-rest",
   "dependencies": {
-    "body-parser": "^1.14.1",
-    "express": "^4.13.3",
-    "tingodb": "^0.4.0"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "tingodb": "^0.5.1"
   },
   "devDependencies": {
     "chai": "^1.10.0",
