@@ -51,6 +51,7 @@ module.exports = function (dataDir) {
     
     req.collection.insert(req.body, {}, function(err, result){
       if (err) { return next(err); }
+      res.statusCode = 201;
       res.send(result[0]);
     });
   });
