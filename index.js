@@ -82,12 +82,26 @@ module.exports = function (dataDir) {
   // delete one
   app.delete('/:resourceName/:id', function(req, res, next) {
     
-    req.collection.remove(
-      {_id: req.params.id},
-      function(err, count){
+    req.collection.findOne({_id: req.params.id},
+      function(err, result){
         if (err) { return next(err); }
-        res.send((count===1)?{msg:'success'}:{msg:'error'});
-      }); 
+        
+        if( result ) {
+          mapInternalId(result);
+
+          req.collection.remove(
+            {_id: req.params.id},
+            function(err, count){
+              if (err) { return next(err); }
+              res.send((count===1)? result : {msg:'error'} );
+            }); 
+
+        } else {
+          res.sendStatus(404);
+        }
+      });
+
+    
     });
   
     function mapInternalId( resource ) {

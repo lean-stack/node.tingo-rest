@@ -94,6 +94,7 @@ describe('REST API - CRUD operations:', function(){
     superagent.put(requestUrl+'/'+id)
       .send(
         { 
+          txt: 'Unit Testing',
           completed: true
         }
       )
@@ -112,11 +113,12 @@ describe('REST API - CRUD operations:', function(){
       });
   });
   
-  it('DELETE should remove an object', function(done){
+  it('DELETE should remove an object and return the object', function(done){
     superagent.del(requestUrl+'/'+id)
       .end(function(e,res){
         expect(e).to.eql(null);
-        expect(res.body.msg).to.equal('success');
+        expect(res.body.id).to.equal(id);
+        expect(res.body.txt).to.equal('Unit Testing');
         superagent.get(requestUrl)
           .end(function(e, res){
             expect(e).to.eql(null);
