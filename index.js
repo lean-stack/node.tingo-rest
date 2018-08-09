@@ -1,4 +1,6 @@
 
+const fs = require('fs');
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var tingoEngine = require('tingodb')();
@@ -6,7 +8,11 @@ var tingoEngine = require('tingodb')();
 module.exports = function (dataDir) {
 
   if( typeof dataDir === 'undefined' ) {
-    throw new Error('Missing data directory');
+    throw new Error('Missing data directory path');
+  }
+  
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir);
   }
   
   var app = express();
