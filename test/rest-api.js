@@ -29,7 +29,7 @@ describe('REST API - CRUD operations:', function(){
     
   });
   
-  it('GET /resource shoud return an empty array on a new resource',
+  it('GET /resource should return an empty array on a new resource',
     function(done){
       superagent.get(requestUrl)
         .end(function(e, res){

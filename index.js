@@ -29,7 +29,9 @@ module.exports = function (dataDir) {
   // get all
   app.get('/:resourceName', function(req,res,next) {
     
-    req.collection.find({})    
+    const filter = req.query.filter || {};
+
+    req.collection.find(filter)    
       .toArray(function(err, results){
         
         if (err) { return next(err); }
