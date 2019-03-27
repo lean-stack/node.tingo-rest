@@ -1,6 +1,6 @@
 {
   "name": "tingo-rest",
-  "version": "2.1.3",
+  "version": "2.1.5",
   "description": "Minimal Express.js middleware exposing REST-API for TingoDB",
   "main": "index.js",
   "scripts": {
