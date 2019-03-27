@@ -23,11 +23,11 @@
   "homepage": "https://github.com/lean-stack/node.tingo-rest",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "tingodb": "^0.6.1"
   },
   "devDependencies": {
-    "chai": "^4.1.2",
+    "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "superagent": "^3.8.3"
   }
